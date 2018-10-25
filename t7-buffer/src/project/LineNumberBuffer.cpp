@@ -6,27 +6,34 @@
 class LineNumberBuffer : public std::streambuf {
     std::streambuf *old;
     std::string str;
-    int ln = 2;
+    int ln = 1;
+    bool f = false;
 public:
-    explicit LineNumberBuffer(std::streambuf *b) : old(b) {
-        sputc('1');
-        sputc(' ');
-    }
+    explicit LineNumberBuffer(std::streambuf *b) : old(b) {}
 
 protected:
 
     int_type overflow(int_type c) override {
-        if ((c) == '\n') {
-            old->sputc(c);
+        if (ln == 1) {
+            str = std::to_string(ln);
+            for (char ch : std::to_string(ln)) {
+                old->sputc(ch);
+            }
+            old->sputc(' ');
+            ln++;
+        }
+        if (f) {
             for (char ch : std::to_string(ln)) {
                 old->sputc(ch);
             }
             ln++;
-            return old->sputc(' ');
-        }else{
-            return old->sputc(c);
+            old->sputc(' ');
+            f = false;
         }
-
+        if ((c) == '\n') {
+            f = true;
+        }
+        return old->sputc(c);
     }
 
     std::streamsize xsputn(const char *s, std::streamsize n) override {
@@ -37,6 +44,6 @@ protected:
                 ln++;
             }
         }
-        return old->sputn(str.data(), n);
+        return old->sputn(str.data(), str.size());
     }
 };
