@@ -23,7 +23,7 @@ int main() {
 
     MyArray2D<bool> m(2,3, v);
 
-    //res(m) = 3;
+    a(m) = 3;
 
     for (int i = 0; i < a.h; i++) {
         for (int j = 0; j < a.w; j++) {

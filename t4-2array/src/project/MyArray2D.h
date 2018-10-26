@@ -53,9 +53,6 @@ public:
 
 
     MyArray2D<T> operator=(const MyArray2D &other) {
-        h = other.h;
-        w = other.w;
-        values = new T[h * w];
         std::copy(other.values, other.values + w * h, values);
         return *this;
 

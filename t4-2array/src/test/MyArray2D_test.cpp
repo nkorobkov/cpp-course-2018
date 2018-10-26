@@ -17,8 +17,8 @@ bool checkValsEq(MyArray2D<D> &array, D* vals){
 
 struct MyArray2D_test : public ::testing::Test {
 
-    MyArray2D<int> a;
-    MyArray2D<int> b;
+    MyArray2D<int> a{2,3};
+    MyArray2D<int> b{2,3};
 
     void SetUp() {
         int av[] = {-2, -1, 0, 1, 2, 3};
