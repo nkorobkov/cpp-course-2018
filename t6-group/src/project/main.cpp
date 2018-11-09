@@ -15,7 +15,7 @@ int main(){
     c.users.insert(a);
     c.users.insert(b);
 
-    std::cout<< std::MyTrait<User>::size(a)<< "  " <<std::MyTrait<Group>::size(c)<<"\n";
+    std::cout<<"User size --> "<<std::MyTrait<User>::size(a)<<" "<<std::MyTrait<User>::size(b)<< " Group size --> " <<std::MyTrait<Group>::size(c)<<"\n";
 
     for (auto user: c.users){
         std::cout<<user.first_name<<"\n";
