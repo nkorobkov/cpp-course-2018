@@ -34,22 +34,24 @@ public:
         delete[] vals;
     }
 
-    MyVector<T> &operator=(MyVector &other) {
-        vals = other.vals;
+    MyVector<T> &operator=(const MyVector &other) {
+        delete[] this->vals ;
+        vals = new T[other._capacity];
+        for(int i = 0; i<other.size();i++){
+            vals[i] = std::move(other.vals[i]);
+        }
         _size = other.size();
         _capacity = other._capacity;
-        other._capacity = 0;
-        other._size = 0;
-        other.vals = nullptr;
         return *this;
     }
 
     MyVector<T> &operator=(MyVector &&other) {
-        for (int i = 0; i < other._size; ++i) {
-            vals[i] = std::move(other.vals[i]);
-        }
+        vals = std::move(other.vals);
         _size = other._size;
         _capacity = other._capacity;
+        other._capacity = 0;
+        other._size = 0;
+        other.vals = nullptr;
         return *this;
     }
 
@@ -72,12 +74,16 @@ public:
     };
 
     void erase(T *pos) {
-        std::copy(pos + 1, vals + _size, pos);
+        for (int i = 0; pos + i+1 != vals + _size; ++i) {
+            pos + i = std::move(pos+i+1);
+        }
         _size--;
     }
 
     void erase(T *first, T *last) {
-        std::copy(last + 1, vals + _size, first);
+        for (int i = 0; last + i+1 != vals + _size; ++i) {
+            first + i = std::move(last+i+1);
+        }
         _size -= last - first;
     }
 
