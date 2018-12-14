@@ -92,6 +92,7 @@ public:
             T *newVals = new T[_size * 2];
             _capacity = _size * 2;
             std::copy(this->begin(), this->end(), newVals);
+            delete [] vals;
             vals = newVals;
 
         }
@@ -107,6 +108,7 @@ public:
             for (int i = 0; i < _size; i++) {
                 newVals[i] = std::move(vals[i]);
             }
+            delete[] vals;
             vals = newVals;
         }
         vals[_size] = std::move(v); // *(vals+_size) = v
