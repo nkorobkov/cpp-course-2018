@@ -1,0 +1,7 @@
+subdir('t4-guard')
+subdir('t3-print')
+subdir('t5-iter')
+subdir('t6-group')
+subdir('t7-buffer')
+subdir('t8-thread')
+subdir('t10-coverage')
